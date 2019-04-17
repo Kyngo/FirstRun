@@ -40,7 +40,7 @@ else
 fi
 
 # vscode
-if [ `which code` == "" ]; then 
+if [ -z `which code` ]; then 
     echo "no vscode installation found"
     rm vscode.deb
     wget https://go.microsoft.com/fwlink/?LinkID=760868 -O vscode.deb
@@ -58,7 +58,7 @@ else
 fi
 
 # nodejs
-if [ `which node` == "" ]; then 
+if [ -z `which node` ]; then 
     echo "no node installation found"
     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 else
@@ -66,7 +66,7 @@ else
 fi
 
 # variety
-if [ `which variety` == "" ]; then 
+if [ -z `which variety` ]; then 
     echo "no variety setup found, adding keys"
     yes | sudo add-apt-repository ppa:peterlevi/ppa
 else
@@ -74,7 +74,7 @@ else
 fi
 
 # php
-if [ `which php` == "" ]; then
+if [ -z `which php` ]; then
     echo "no php found, installing"
     sudo apt install php -y
 else
@@ -82,7 +82,7 @@ else
 fi
 
 # composer
-if [ `which composer` == "" ]; then
+if [ -z `which composer` ]; then
     echo "no composer found, installing"
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     php composer-setup.php
@@ -91,6 +91,17 @@ if [ `which composer` == "" ]; then
     sudo chmod +x /usr/bin/composer
 else
     echo "composer found, skipping"
+fi
+
+# telegram
+if [ -z `which telegram` ]; then
+    echo "no telegram found, installing"
+    wget https://telegram.org/dl/desktop/linux -O telegram.tar.xz
+    tar xf telegram.tar.xz
+    sudo cp -r Telegram/ /opt/telegram
+    sudo ln -s /opt/telegram/Telegram /usr/bin/telegram
+else
+    echo "telegram found, skipping"
 fi
 
 Update
