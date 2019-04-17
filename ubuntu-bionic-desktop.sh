@@ -2,8 +2,8 @@
 
 # variables
 SNAPS="spotify"
-PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git php"
-NODEPKGS="yarn npx gtop nodemon"
+PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git neofetch"
+NODEPKGS="yarn npx gtop nodemon react-native-cli"
 
 echo "===================================="
 echo " First Run Scripts - Ubuntu Edition "
@@ -19,7 +19,7 @@ if [ $EUID -ne 0 ]; then
 fi
 
 # update system
-function Update {
+function __Update {
     sudo apt autoremove -y
     sudo apt update
     sudo apt upgrade -y
@@ -29,7 +29,7 @@ function Update {
 
 cd /tmp
 
-Update
+__Update
 
 # curl
 if [ -f `which curl` ]; then 
@@ -76,7 +76,7 @@ fi
 # php
 if [ -z `which php` ]; then
     echo "no php found, installing"
-    sudo apt install php -y
+    sudo apt install -y php7.2 php7.2-cli php7.2-fpm php7.2-mysql php7.2-xml php7.2-curl php7.2-opcache php7.2-pdo php7.2-gd php7.2-apcu php7.2-mbstring php7.2-imap php7.2-redis php7.2-memcached php7.2-mysqli php7.2-mysqlnd
 else
     echo "php found, skipping"
 fi
@@ -104,7 +104,7 @@ else
     echo "telegram found, skipping"
 fi
 
-Update
+__Update
 
 # snaps
 for idx in $SNAPS; do
