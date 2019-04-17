@@ -2,7 +2,7 @@
 
 # variables
 SNAPS="spotify"
-PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git"
+PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git php"
 NODEPKGS="yarn npx gtop nodemon"
 
 echo "===================================="
@@ -11,6 +11,12 @@ echo "===================================="
 echo ""
 echo "Running this in a non-compatible OS could damage it and leave it unfunctional."
 echo "Use at your own risk."
+echo ""
+
+if [ $EUID -ne 0 ]; then
+    echo "This script must be run as root or with sudo!"
+    exit 1
+fi
 
 # update system
 function Update {
@@ -52,7 +58,7 @@ else
 fi
 
 # nodejs
-if [ `which code` == "" ]; then 
+if [ `which node` == "" ]; then 
     echo "no node installation found"
     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 else
@@ -60,7 +66,32 @@ else
 fi
 
 # variety
-sudo add-apt-repository ppa:peterlevi/ppa
+if [ `which variety` == "" ]; then 
+    echo "no variety setup found, adding keys"
+    yes | sudo add-apt-repository ppa:peterlevi/ppa
+else
+    echo "variety found, skipping"
+fi
+
+# php
+if [ `which php` == "" ]; then
+    echo "no php found, installing"
+    sudo apt install php -y
+else
+    echo "php found, skipping"
+fi
+
+# composer
+if [ `which composer` == "" ]; then
+    echo "no composer found, installing"
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    php composer-setup.php
+    php -r "unlink('composer-setup.php');"
+    sudo mv composer.phar /usr/bin/composer
+    sudo chmod +x /usr/bin/composer
+else
+    echo "composer found, skipping"
+fi
 
 Update
 
