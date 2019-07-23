@@ -2,8 +2,9 @@
 
 # variables
 SNAPS="spotify"
-PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git neofetch"
+PACKAGES="nodejs npm chromium-browser google-chrome-stable vlc build-essential terminator variety git neofetch python3 python3-pip subnetcalc cockpit"
 NODEPKGS="yarn npx gtop nodemon react-native-cli"
+PYTHONPKGS="cheat"
 
 echo "===================================="
 echo " First Run Scripts - Ubuntu Edition "
@@ -122,4 +123,10 @@ done
 for idx in $NODEPKGS; do
     echo "Installing module $idx ..."
     npm i -g $idx
+done
+
+# python global packages
+for idx in $PYTHONPKGS; do
+    echo "Installing Python module $idx ..."
+    python3 -m pip install $idx
 done
