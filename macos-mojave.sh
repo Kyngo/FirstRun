@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PACKAGES="git node htop"
-CASKS="visual-studio-code postman google-chrome firefox telegram iterm2 "
+CASKS="visual-studio-code postman google-chrome firefox telegram iterm2"
 NODEPKGS="yarn npx gtop nodemon react-native-cli"
 
 echo "=========================================="
