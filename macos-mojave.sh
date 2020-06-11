@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PACKAGES="git node htop"
+PACKAGES="git node htop httpie"
 CASKS="visual-studio-code postman google-chrome firefox telegram iterm2"
 NODEPKGS="yarn npx gtop nodemon react-native-cli"
 
@@ -144,6 +144,10 @@ echo 'address=/.test/127.0.0.1' > /usr/local/etc/dnsmasq.conf
 sudo brew services start dnsmasq
 sudo mkdir -v /etc/resolver
 sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
+
+# nvm
+echo "Installing NVM..."
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 # finished setup
 echo "Apache Installation finished. The settings file will be opened now, in case you want to edit it."
